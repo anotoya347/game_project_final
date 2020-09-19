@@ -80,7 +80,7 @@ function preload()
 	hitSound = loadSound('assets/knife-stab-1.mp3');
 	hitSound.setVolume(0.1);
 	
-};
+}
 
 function setup()
 {
@@ -89,7 +89,7 @@ function setup()
 	lives = 3;
 	new_collectables = [];
 	startGame();
-};
+}
 
 
 function draw()
@@ -124,7 +124,7 @@ function draw()
 	{
 		drawCanyon(canyons[i]);
 		checkCanyon(canyons[i]);
-	};
+	}
 	pop();
 	
 	push();
@@ -136,8 +136,8 @@ function draw()
 		{
 			drawCollectable(collectables[i]);
 			checkCollectable(collectables[i]);
-		};
-	};
+		}
+	}
 	
 	// Draw enemies
 	for(var i = 0; i < enemy.length; i++)
@@ -147,16 +147,16 @@ function draw()
 		{
 			drawEnemy(enemy[i]);
 			checkShurikenThrown(enemy[i]);
-		};
+		}
 
-		if(dist(gameChar_world_x, gameChar_y - 10, enemy[i].pos_x, enemy[i].pos_y - 100) < 295 
+		if(enemy[i].shurikenThrown 
 			&& enemy[i].shuriken_y < floorPos_y
 			&& enemy[i].shurikenHit == false)
 		{
 			drawShuriken(enemy[i]);
 			checkShurikenHit(enemy[i]);
-		};
-	};
+		}
+	}
 	pop();
 	
 	// Darken the background when level completed
@@ -167,7 +167,7 @@ function draw()
 		fill(0,0,0,200);
 		rect(0, 0, width, height);
 		pop();
-	};
+	}
 
 	// Draw light at the goal
 	push();
@@ -186,7 +186,7 @@ function draw()
 	{
 		petal.update(t); // update cherrypetal position
 		petal.display(); // draw cherrypetal
-	};
+	}
 	pop();
 
 	// Draw game character.
@@ -202,7 +202,7 @@ function draw()
 	for(var i = lives; i >= 0; i--)
 	{
 		text("lives: " + lives, 110, 20);
-	};
+	}
 	// Draw gameover message
 	if(lives < 1)
 	{
@@ -218,7 +218,7 @@ function draw()
 		text("Press space to continue", width/2, height/4 + 380)
 		pop();
 		return;
-	};
+	}
 	// Draw level complete message
 	if(light.isReached)
 	{
@@ -232,7 +232,7 @@ function draw()
 		text("Press space to continue", width/2, height/4 + 380);
 		pop();
 		return;
-	};
+	}
 
 	// Logic to make the game character move or the background scroll.
 	if(isLeft)
@@ -244,8 +244,8 @@ function draw()
 		else
 		{
 			scrollPos += 5;
-		};
-	};
+		}
+	}
 
 	if(isRight)
 	{
@@ -256,8 +256,8 @@ function draw()
 		else
 		{
 			scrollPos -= 5; // negative for moving against the background
-		};
-	};
+		}
+	}
 
 	// Logic to make the game character rise and fall.
 	if(gameChar_y < floorPos_y)
@@ -277,27 +277,27 @@ function draw()
 		if(gameChar_y == 532 || gameChar_y == 532 && isHit != true)
 		{
 			splashSound.play();
-		};
-	};
+		}
+	}
 
 	if(light.isReached == false)
 	{
 
 		checkLight();
-	};
+	}
 
 	if(light.isReached)
 	{
 		backgroundSound.stop();
 		levelcompleteSound1.play();
 		levelcompleteSound2.loop();
-	};
+	}
 	
 	checkPlayerDie();
 
 	// Update real position of gameChar for collision detection.
 	gameChar_world_x = gameChar_x - scrollPos;
-};
+}
 
 
 // ---------------------
@@ -338,8 +338,8 @@ function keyPressed(){
 		lives = initLives;
 		game_score = 0;
 		startGame();
-	};
-};
+	}
+}
 
 
 function keyReleased()
@@ -354,7 +354,7 @@ function keyReleased()
 		isRight = false;
 	}
 
-};
+}
 
 
 // ------------------------------
@@ -603,8 +603,8 @@ function drawGameChar()
 		ellipse(gameChar_x - 5, gameChar_y - 30, 5, 10);
 		ellipse(gameChar_x + 5, gameChar_y - 30, 5, 10);
 
-	};
-};
+	}
+}
 
 // ------------------------------
 // Enemy render function
@@ -641,7 +641,7 @@ function drawEnemy(t_enemy)
 	vertex(t_enemy.pos_x + 10, t_enemy.pos_y - 44);
 	vertex(t_enemy.pos_x + 4, t_enemy.pos_y - 44);
 	endShape();
-};
+}
 
 function drawShuriken(t_enemy)
 {
@@ -658,8 +658,8 @@ function drawShuriken(t_enemy)
 	{
 		t_enemy.pos_x -= random(2, 2.5);
 		t_enemy.shuriken_y += 0.8;
-	};
-};
+	}
+}
 
 function checkShurikenThrown(t_enemy)
 {
@@ -667,8 +667,8 @@ function checkShurikenThrown(t_enemy)
 	{
 		t_enemy.shurikenThrown = true;
 		shurikenSound.play();
-	};
-};
+	}
+}
 
 function checkShurikenHit(t_enemy)
 {
@@ -678,8 +678,8 @@ function checkShurikenHit(t_enemy)
 		t_enemy.shurikenHit = true;
 		hitSound.play();
 		isPlummeting = true;
-	};
-};
+	}
+}
 
 // ---------------------------
 // Background render functions
@@ -696,8 +696,8 @@ function setGradient(x, y, w, h, c1, c2, axis)
 		let c = lerpColor(c1, c2, inter);
 		stroke(c);
 		line(x, i, x + w, i);
-	};
-};
+	}
+}
 
 // Function to draw cloud objects.
 function drawClouds()
@@ -709,9 +709,9 @@ function drawClouds()
 		rect(clouds[i].pos_x + 30, clouds[i].pos_y + clouds[i].height*4/3, clouds[i].width, clouds[i].height, 12);
 		rect(clouds[i].pos_x + 60, clouds[i].pos_y + clouds[i].height, clouds[i].width/5, clouds[i].height*1/3);
 		clouds[i].pos_x -= 0.15;
-	};
+	}
 
-};
+}
 
 // Function to draw mountains objects.
 function drawMountains()
@@ -735,8 +735,8 @@ function drawMountains()
 		vertex(mountains[i].pos_x + mountains[i].width*0.4, floorPos_y - mountains[i].height*0.7);
 		vertex(mountains[i].pos_x + mountains[i].width*0.45 - sq(0.45)*mountains[i].width, floorPos_y - mountains[i].height*0.55);
 		endShape(CLOSE);
-	};
-};
+	}
+}
 // Function to draw trees objects.
 function drawTrees()
 {
@@ -769,8 +769,8 @@ function drawTrees()
 		fill(252, 198, 195, 180);
 		ellipse(trees_x[i] + 70, floorPos_y - 92, 100, 90);
 		
-	};
-};
+	}
+}
 
 function drawPetals()
 {
@@ -801,14 +801,14 @@ function drawPetals()
 			var index = cherrypetals.indexOf(this);
 			cherrypetals.splice(index, 1);
 		}
-	};
+	}
 
 	this.display = function()
 	{
 		fill(252, int(random(198,238)), int(random(195,235)), 180);
 		ellipse(this.pos_x, this.pos_y, this.petal_w, this.petal_h);
-	};
-};
+	}
+}
 // ---------------------------------
 // Canyon render and check functions
 // ---------------------------------
@@ -831,31 +831,31 @@ function drawCanyon(t_canyon)
 		arc(t_canyon.pos_x, floorPos_y + 120, t_canyon.width/denom[i], t_canyon.width/denom[i], PI + HALF_PI, HALF_PI);
 		arc(t_canyon.pos_x + t_canyon.width/2, floorPos_y + 120, t_canyon.width/denom[i], t_canyon.width/denom[i], PI, 0);
 		arc(t_canyon.pos_x + t_canyon.width, floorPos_y + 120, t_canyon.width/denom[i], t_canyon.width/denom[i], HALF_PI, PI + HALF_PI);
-	};
+	}
 	for(var i = 0; i < 3; i++)
 	{
 		arc(t_canyon.pos_x + t_canyon.width/4, floorPos_y + 130, t_canyon.width/denom[i], t_canyon.width/denom[i], PI, 0);
 		arc(t_canyon.pos_x + t_canyon.width*3/4, floorPos_y + 130, t_canyon.width/denom[i], t_canyon.width/denom[i], PI, 0);
-	};
+	}
 	for(var i = 0; i < 3; i++)
 	{
 		arc(t_canyon.pos_x, floorPos_y + 140, t_canyon.width/denom[i], t_canyon.width/denom[i], PI + HALF_PI, HALF_PI);
 		arc(t_canyon.pos_x + t_canyon.width/2, floorPos_y + 140, t_canyon.width/denom[i], t_canyon.width/denom[i], PI,0);
 		arc(t_canyon.pos_x + t_canyon.width, floorPos_y + 140, t_canyon.width/denom[i], t_canyon.width/denom[i], HALF_PI, PI + HALF_PI);
-	};
+	}
 	for(var i = 0; i < 3; i++)
 	{
 		arc(t_canyon.pos_x + t_canyon.width/4, floorPos_y + 150, t_canyon.width/denom[i], t_canyon.width/denom[i], PI, 0);
 		arc(t_canyon.pos_x + t_canyon.width*3/4, floorPos_y + 150, t_canyon.width/denom[i], t_canyon.width/denom[i], PI, 0);
-	};
+	}
 	for(var i = 0; i < 3; i++)
 	{
 		arc(t_canyon.pos_x, floorPos_y + 160, t_canyon.width/denom[i], t_canyon.width/denom[i], PI + HALF_PI, HALF_PI);
 		arc(t_canyon.pos_x + t_canyon.width/2, floorPos_y + 160, t_canyon.width/denom[i], t_canyon.width/denom[i], PI,0);
 		arc(t_canyon.pos_x + t_canyon.width, floorPos_y + 160, t_canyon.width/denom[i], t_canyon.width/denom[i], HALF_PI, PI + HALF_PI);
-	};
+	}
 	pop();
-};
+}
 
 // Function to check character is over a canyon.
 function checkCanyon(t_canyon)
@@ -865,8 +865,8 @@ function checkCanyon(t_canyon)
 		&& (gameChar_y >= floorPos_y))
 	{
 		isPlummeting = true;
-	};
-};
+	}
+}
 
 // ----------------------------------
 // Collectable items render and check functions
@@ -892,14 +892,14 @@ function drawCollectable(t_collectable)
 		line(t_collectable.pos_x - 9, t_collectable.pos_y - i, t_collectable.pos_x - 4, t_collectable.pos_y - i);
 		line(t_collectable.pos_x + 9, t_collectable.pos_y + i, t_collectable.pos_x + 4, t_collectable.pos_y + i);
 		line(t_collectable.pos_x + 9, t_collectable.pos_y - i, t_collectable.pos_x + 4, t_collectable.pos_y - i);
-	};
+	}
 	for (var i = 8; i < 15; i++)
 	{
 		var k = 2*sqrt(sq(round) - sq(round-(15-i)))/2 - 1
 		line(t_collectable.pos_x - k, t_collectable.pos_y + i, t_collectable.pos_x + k, t_collectable.pos_y + i);
 		line(t_collectable.pos_x - k, t_collectable.pos_y - i, t_collectable.pos_x + k, t_collectable.pos_y - i);
-	};
-};
+	}
+}
 
 // Function to check character has collected an item.
 function checkCollectable(t_collectable)
@@ -909,8 +909,8 @@ function checkCollectable(t_collectable)
 			t_collectable.isFound = true;
 			game_score += 10;
 			collectablesSound.play();
-		};
-};
+		}
+}
 
 function drawLight()
 {
@@ -965,7 +965,7 @@ function drawLight()
 				line(light.pos_x - j*32 - 8, light.pos_y + i*40 + a + 35, light.pos_x - j*32 - 4, light.pos_y + i*40 + a + 34);
 				line(light.pos_x - j*32 + 4, light.pos_y + i*40 + a + 34, light.pos_x - j*32 + 8, light.pos_y + i*40 + a + 35);
 			}
-		};
+		}
 		noStroke();
 		fill(255, 255, 200, random(80, 120));
 		star(light.pos_x - 50, 100, 1, 3, 4);
@@ -1008,9 +1008,9 @@ function drawLight()
 		line(light.pos_x - 4, light.pos_y + 34, light.pos_x + 4, light.pos_y + 34)
 		line(light.pos_x - 8, light.pos_y + 35, light.pos_x - 4, light.pos_y + 34)
 		line(light.pos_x + 4, light.pos_y + 34, light.pos_x + 8, light.pos_y + 35)
-	};
+	}
 	pop();
-};
+}
 
 function star(x, y, radius1, radius2, npoints)
 {
@@ -1025,9 +1025,9 @@ function star(x, y, radius1, radius2, npoints)
 	  sx = x + cos(a + halfAngle) * radius1;
 	  sy = y + sin(a + halfAngle) * radius1;
 	  vertex(sx, sy);
-	};
+	}
 	endShape(CLOSE);
-};
+}
 
 function checkLight()
 {
@@ -1035,8 +1035,8 @@ function checkLight()
 	if(d < 15)
 	{
 		light.isReached = true;
-	};
-};
+	}
+}
 
 function checkPlayerDie()
 {
@@ -1054,9 +1054,9 @@ function checkPlayerDie()
 		else
 		{
 			gameoverSound.loop();
-		};
-	};
-};
+		}
+	}
+}
 
 function startGame()
 {
@@ -1119,7 +1119,7 @@ function startGame()
 	for (var i = 0; i < trees_x.length; i++)
 	{
 		petals.push({pos_x: trees_x[i], pos_y: floorPos_y - 130});
-	};
+	}
 
 	cherrypetals = [];
 	canyons = [
@@ -1171,7 +1171,7 @@ function startGame()
 	else
 	{
 		collectables = new_collectables
-	};
+	}
 
 	enemy = [];
 	for (var i = 1; i < canyons.length; i++)
@@ -1187,12 +1187,12 @@ function startGame()
 			enemy_input = random(canyons[i-1].pos_x + canyons[i-1].width, canyons[i].pos_x - 100);
 		}
 		enemy.push({pos_x: enemy_input, pos_y: floorPos_y - random_y ,shuriken_y: floorPos_y - random_y - 50, shurikenThrown: false, shurikenHit: false});
-	};
+	}
 
 	initLives = 3;
 	if(lives == initLives)
 	{
 		game_score = 0;
-	};
-	light = {isReached: false, pos_x: 3500, pos_y: floorPos_y - 200};
+	}
+	light = {isReached: false, pos_x: 3500, pos_y: floorPos_y - 200}
 }
