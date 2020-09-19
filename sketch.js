@@ -208,8 +208,9 @@ function draw()
 	{
 		push();
 		noStroke();
-		fill(180, 48, 21,180);
-		rect(0, 0, width, height);
+		setGradient(0, 0, width, height, color(0, 180), color(160, 48, 21, 180), 1);
+		// fill(180, 48, 21,180);
+		// rect(0, 0, width, height);
 		fill(200);
 		textSize(24);
 		textAlign(CENTER);
