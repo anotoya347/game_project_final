@@ -264,7 +264,7 @@ function draw()
 	if(gameChar_y < floorPos_y)
 	{
 		isFalling = true;
-		gameChar_y += 8;
+		gameChar_y += 4;
 	}
 	else
 	{
